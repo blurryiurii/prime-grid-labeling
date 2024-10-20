@@ -1,4 +1,3 @@
-import time
 import numpy as np
 from math import gcd
 

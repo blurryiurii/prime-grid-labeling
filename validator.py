@@ -1,57 +1,53 @@
-import math
+import numpy as np
+from math import gcd
 
-FILENAME = "113.txt"
+FILENAME = "grids/grid-18x18.txt"
 
-def is_coprime(a, b):
-    """Returns True if a and b are coprime (gcd is 1), otherwise False."""
-    return math.gcd(a, b) == 1
-
-def get_neighbors(grid, row, col):
-    """Returns a list of orthogonal neighbors for a given position in the grid."""
+# Function to get orthogonal neighbors
+def get_neighbors(i, j, rows, cols):
+    """Get the orthogonal neighbors of (i, j)."""
     neighbors = []
-    rows, cols = len(grid), len(grid[0])
-    
-    # Check above
-    if row > 0:
-        neighbors.append(grid[row - 1][col])
-    # Check below
-    if row < rows - 1:
-        neighbors.append(grid[row + 1][col])
-    # Check left
-    if col > 0:
-        neighbors.append(grid[row][col - 1])
-    # Check right
-    if col < cols - 1:
-        neighbors.append(grid[row][col + 1])
-    
+    if i > 0:  # Up
+        neighbors.append((i - 1, j))
+    if i < rows - 1:  # Down
+        neighbors.append((i + 1, j))
+    if j > 0:  # Left
+        neighbors.append((i, j - 1))
+    if j < cols - 1:  # Right
+        neighbors.append((i, j + 1))
     return neighbors
 
-def validate_grid(grid):
-    """Validates that all orthogonal neighbors in the grid are coprime."""
-    for row in range(len(grid)):
-        for col in range(len(grid[0])):
-            num = grid[row][col]
-            neighbors = get_neighbors(grid, row, col)
-            for neighbor in neighbors:
-                if not is_coprime(num, neighbor):
-                    print(f"Invalid pair found: {num} and {neighbor} at ({row}, {col})")
-                    return False
-    print("The grid is valid.")
+# Function to check if a number is coprime with its orthogonal neighbors
+def is_valid(grid, i, j, num):
+    """Check if num is coprime with all its orthogonal neighbors."""
+    neighbors = get_neighbors(i, j, grid.shape[0], grid.shape[1])
+    return all(gcd(num, grid[ni, nj]) == 1 for ni, nj in neighbors if grid[ni, nj] != 0)
+
+# Function to parse the input file
+def parse_grid_file(filename):
+    """Parse the grid from a formatted file."""
+    grid = []
+    with open(filename, 'r') as f:
+        for line in f:
+            # Strip brackets and split into numbers
+            line = line.strip().replace('[', '').replace(']', '')
+            if line:
+                row = list(map(int, line.split()))
+                grid.append(row)
+    return np.array(grid)
+
+# Function to validate the entire grid
+def validate_prime_labeled_grid(filename):
+    """Validate that all orthogonal neighbors in the grid are coprime."""
+    grid = parse_grid_file(filename)
+    rows, cols = grid.shape
+    for i in range(rows):
+        for j in range(cols):
+            if not is_valid(grid, i, j, grid[i, j]):
+                print(f"Validation failed at ({i}, {j}) with value {grid[i, j]}")
+                return False
+    print("The grid is valid: All orthogonal neighbors are coprime.")
     return True
 
-def read_grid_from_file(filename):
-    """Reads a grid from a file, assuming space-separated integers."""
-    with open(filename, 'r') as f:
-        grid = []
-        for line in f:
-            # Remove brackets and split by space to form the row
-            row = list(map(int, line.strip().replace('[', '').replace(']', '').split()))
-            grid.append(row)
-    return grid
-
-if __name__ == "__main__":
-    # Read the grid from 'input.txt'
-    grid = read_grid_from_file(FILENAME)
-    
-    # Validate the grid
-    validate_grid(grid)
+# Example usage
+validate_prime_labeled_grid(FILENAME)
