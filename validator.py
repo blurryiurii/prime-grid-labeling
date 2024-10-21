@@ -1,3 +1,4 @@
+import numpy as np
 from math import gcd
 import re
 
@@ -29,13 +30,14 @@ def parse_grid_file(filename):
     grid = []
     with open(filename, 'r') as f:
         grid = [[int(v) for v in re.split(r"\s+", m.group(1))] for m in re.finditer(r"\[\s*((?:\d+\s*)+)\]", f.read())]
-        # print(grid)
-        # for line in f:
-        #     # Strip brackets and split into numbers
-        #     line = line.strip().replace('[', '').replace(']', '')
-        #     if line:
-        #         row = list(map(int, line.split()))
-        #         grid.append(row)
+        print(grid)
+        for line in f:
+            # Strip brackets and split into numbers
+            line = line.strip().replace('[', '').replace(']', '')
+            if line:
+                row = list(map(int, line.split()))
+                grid.append(row)
+
     return np.array(grid)
 
 # Function to validate the entire grid
