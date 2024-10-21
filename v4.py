@@ -1,6 +1,6 @@
 import numpy as np
 from math import gcd
-
+from graph import *
 
 def factors(n) -> set[set[int]]:
     """
@@ -54,10 +54,14 @@ def get_neighbors(i, j, rows, cols):
     return neighbors
 
 
-def is_valid(matrix, i, j, num):
-    """Check if num is coprime with all its orthogonal neighbors."""
-    neighbors = get_neighbors(i, j, matrix.shape[0], matrix.shape[1])
-    return all(gcd(num, matrix[ni, nj]) == 1 for ni, nj in neighbors if matrix[ni, nj] != 0)
+def is_valid(matrix: MatrixGraph, i, j, num):
+    """
+    Returns a boolean value indicating whether a number is coprime with values of
+    every filled node adjacent to the given grid coordinate
+    """
+    neighbors_value_raw = (neighbor.get_value() for neighbor in matrix.get_node_by_coord([i, j]).get_neighbors())
+    neighbors_value = (value for value in neighbors_value_raw if value is not None)
+    return all(gcd(num, neighbor_value) == 1 for neighbor_value in neighbors_value)
 
 
 def generate_prime_grid(n, m) -> list[list[int]]:
@@ -66,7 +70,10 @@ def generate_prime_grid(n, m) -> list[list[int]]:
     in the beginning to prevent impossible states later.
     """
     print(f"Generating {n}x{m} grid ({n*m} values)")
-    grid = np.zeros((n, m), dtype=int)
+
+    # grid = np.zeros((n, m), dtype=int)
+    grid = MatrixGraph(n, m)
+
     sorted_numbers = most_factors_first(n * m)
     stack = []
     index = 0
