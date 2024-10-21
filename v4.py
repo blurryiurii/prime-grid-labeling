@@ -1,8 +1,9 @@
 # import numpy as np
 from math import gcd
 from graph import *
+from prime_tools import most_factors_first
 
-def is_valid(matrix: MatrixGraph, i, j, num):
+def is_valid(matrix: MatrixGraph, i, j, num) -> bool:
     """
     Returns a boolean value indicating whether a number is coprime with values of
     every filled node adjacent to the given grid coordinate
@@ -12,7 +13,7 @@ def is_valid(matrix: MatrixGraph, i, j, num):
     return all(gcd(num, neighbor_value) == 1 for neighbor_value in neighbors_value)
 
 
-def generate_prime_grid(n, m) -> list[list[int]]:
+def generate_prime_grid(n, m) -> MatrixGraph|None:
     """
     Backtracking approach that uses most_factors_first to try to place factor-heavy numbers
     in the beginning to prevent impossible states later.
