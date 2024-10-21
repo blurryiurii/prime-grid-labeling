@@ -13,10 +13,12 @@ def is_valid(matrix: MatrixGraph, i, j, num) -> bool:
     return all(gcd(num, neighbor_value) == 1 for neighbor_value in neighbors_value)
 
 
+# Might need to init MatrixGraph so that all nodes are zero
 def generate_prime_grid(n, m) -> MatrixGraph|None:
     """
-    Backtracking approach that uses most_factors_first to try to place factor-heavy numbers
-    in the beginning to prevent impossible states later.
+    Backtracking approach that uses most_factors_first to try to place numbers
+    with more unique prime factors first when the likelihood of finding a valid position for
+    that number is higher
     """
     print(f"Generating {n}x{m} grid ({n*m} values)")
 
