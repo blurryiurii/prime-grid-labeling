@@ -1,4 +1,3 @@
-import numpy as np
 from math import gcd
 import re
 
