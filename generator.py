@@ -4,7 +4,7 @@ import os
 
 # Range of NxN grids you'd like to try generating
 START_N = 1
-END_N = 180
+END_N = 61
 
 OUTPUT_FOLDER = "grids"
 SUCCESS_TRACKER_FILE = OUTPUT_FOLDER + "/_successful-grids.txt"

@@ -104,3 +104,8 @@ def generate_prime_grid(n, m) -> list[list[int]]:
                 return None
     # If the placement of all numbers is valid, return the grid
     return grid if index == n * m else None
+
+grid = generate_prime_grid(10, 20)
+print(grid)
+grid = generate_prime_grid(20, 10)
+print(grid)

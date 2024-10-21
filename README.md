@@ -44,6 +44,7 @@ Running `generator.py` is the easiest way to demonstrate this script in action.
 Steps:
 - Leave the START_N as it is
 - Set END_N to be the upper bound for how big NxN array you wish to create
+- 64 is a good number for the upper bound, 48 if your computer is a bit slow
 - Run the script
 - See your CPU's hard work in folder `grids`, which includes a `_successful-grids.txt` list of all NxN grids the script could generate, and a corresponding txt file for each grid.
 
@@ -59,4 +60,6 @@ Current valid N for which NxN graphs have been found, searching up to N=155:
 1 2 3 4 5 6 7 8 9 10 11 14 15 16 17 18 19 25 27 28 29 30 31 34 37 45 61 113 115
 
 # Current issue
-Currently, the validator.py doesn't parse rows that span multiple lines, meaning it can't validate a 19x19 grid correctly. At least, the 18x18 grid passes validation though. #todo
+Some grids fail to generate despite a valid configuration. This can be demonstrated by attempting to generate a 10x20 grid, which fails, while a 20x10 grid returns a valid grid.
+
+Nevertheless, the generation of 113x113 and 115x155 grids has made the efficiency tradeoff worth the accuracy sacrifice, for now.
