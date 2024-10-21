@@ -1,6 +1,7 @@
 import time
 import v4
 import os
+from graph import MatrixGraph, print_2d_matrix_graph
 
 # Range of NxN grids you'd like to try generating
 START_N = 1
@@ -23,9 +24,9 @@ for i in range(START_N, END_N + 1):
         print(f"Success! {i}x{i} grid took {delta} seconds.")
         # Save successful grids in graphs directory
         with open(f"{OUTPUT_FOLDER}/grid-{i}x{i}.txt", "w") as f:
-            for row in prime_grid:
-                f.write(str(row))
-                f.write("\n")
+            f.write(
+                print_2d_matrix_graph(prime_grid, mute = True)
+            )
             f.write("\n")
         with open(SUCCESS_TRACKER_FILE, "a+") as f:
             f.write(str(i) + "\n")
