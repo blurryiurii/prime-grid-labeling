@@ -1,7 +1,7 @@
 import time
 import v4
 import os
-from graph import MatrixGraph, print_2d_matrix_graph
+from graph import print_2d_matrix_graph
 
 # Range of NxN grids you'd like to try generating
 START_N = 1
@@ -10,7 +10,6 @@ END_N = 61
 OUTPUT_FOLDER = "grids"
 SUCCESS_TRACKER_FILE = OUTPUT_FOLDER + "/_successful-grids.txt"
 
-# Create directory if it's not already there
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
 # Meat & potatoes 

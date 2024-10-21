@@ -14,7 +14,7 @@ def is_valid(matrix: MatrixGraph, i, j, num) -> bool:
 
 
 # Might need to init MatrixGraph so that all nodes are zero
-def generate_prime_grid(n, m) -> MatrixGraph|None:
+def generate_prime_grid(n, m) -> MatrixGraph | None:
     """
     Backtracking approach that uses most_factors_first to try to place numbers
     with more unique prime factors first when the likelihood of finding a valid position for

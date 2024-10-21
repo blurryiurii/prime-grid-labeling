@@ -4,7 +4,7 @@ import re
 
 FILENAME = "grids/grid-61x61.txt"
 
-# Function to get orthogonal neighbors
+
 def get_neighbors(i, j, rows, cols):
     """Get the orthogonal neighbors of (i, j)."""
     neighbors = []
@@ -18,13 +18,13 @@ def get_neighbors(i, j, rows, cols):
         neighbors.append((i, j + 1))
     return neighbors
 
-# Function to check if a number is coprime with its orthogonal neighbors
+
 def is_valid(grid, i, j, num):
     """Check if num is coprime with all its orthogonal neighbors."""
     neighbors = get_neighbors(i, j, grid.shape[0], grid.shape[1])
     return all(gcd(num, grid[ni, nj]) == 1 for ni, nj in neighbors if grid[ni, nj] != 0)
 
-# Function to parse the input file
+
 def parse_grid_file(filename):
     """Parse the grid from a formatted file."""
     grid = []
@@ -40,7 +40,7 @@ def parse_grid_file(filename):
 
     return np.array(grid)
 
-# Function to validate the entire grid
+
 def validate_prime_labeled_grid(filename):
     """Validate that all orthogonal neighbors in the grid are coprime."""
     grid = parse_grid_file(filename)
@@ -53,5 +53,5 @@ def validate_prime_labeled_grid(filename):
     print("The grid is valid: All orthogonal neighbors are coprime.")
     return True
 
-# Example usage
+
 validate_prime_labeled_grid(FILENAME)
